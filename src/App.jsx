@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import CardGrid from './components/CardGrid'
 import SimulationConfig from './components/SimulationConfig';
@@ -11,10 +11,22 @@ function App() {
   const [simulationResult, setSimulationResult] = useState(null);
   const MAX_SELECTED_CARDS = 9;
 
+  const swipeContainerRef = useRef(null);
+
   // Reset result whenever the selection of cards changes
   useEffect(() => {
     setSimulationResult(null);
   }, [selectedCards]);
+
+  // Auto-swipe on mobile when 9 cards selected
+  useEffect(() => {
+    const el = swipeContainerRef.current;
+    if (!el) return;
+    const isMobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+    if (!isMobile) return;
+    const targetLeft = selectedCards.length >= MAX_SELECTED_CARDS ? el.clientWidth : 0;
+    el.scrollTo({ left: targetLeft, behavior: 'smooth' });
+  }, [selectedCards.length]);
 
   const handleCardSelect = (card) => {
     setSelectedCards(prevSelected => {
@@ -74,7 +86,7 @@ function App() {
       </main>
 
       {/* Mobile swipe layout */}
-      <section className="swipe-container">
+      <section className="swipe-container" ref={swipeContainerRef}>
         <div className="swipe-page">
           <CardGrid 
             selectedCards={selectedCards}
