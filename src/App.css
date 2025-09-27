@@ -148,7 +148,7 @@
   /* Each swipe page also fills the screen */
   .swipe-page {
     scroll-snap-align: start;
-    padding: 10px 8px 8px; /* small, consistent top padding */
+    padding: 0 8px 8px; /* remove top padding to eliminate white bar */
     box-sizing: border-box;
     height: 100dvh;
   }
@@ -170,7 +170,7 @@
     overflow-y: auto; /* Enable vertical scrolling for the config page */
     display: flex;
     flex-direction: column;
-    gap: 0.5rem; /* tighter spacing between scenario and result */
+    gap: 0.5rem;
   }
 
   .results-column {

@@ -95,9 +95,10 @@ const SimulationConfig = ({ selectedCards, onStart, isLoading }) => {
           ))}
         </div>
 
-        <div className="choice-grid-suits two-cols">
+        <div className="choice-grid-suits three-cols">
           <button className={`choice-btn ${comparator === 'atLeast' ? 'selected' : ''}`} onClick={() => setComparator('atLeast')} disabled={selectedCards.length < 9}>mindestens</button>
           <button className={`choice-btn ${comparator === 'atMost' ? 'selected' : ''}`} onClick={() => setComparator('atMost')} disabled={selectedCards.length < 9}>höchstens</button>
+          <button className={`choice-btn ${comparator === 'exact' ? 'selected' : ''}`} onClick={() => setComparator('exact')} disabled={selectedCards.length < 9}>genau</button>
         </div>
 
         <div className="choice-grid-values">

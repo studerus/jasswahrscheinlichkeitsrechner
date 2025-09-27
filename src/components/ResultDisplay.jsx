@@ -15,7 +15,7 @@ const ResultDisplay = ({ isLoading, result }) => {
   if (result === null) {
     return (
       <div className="result-display-container centered">
-        <p>Bitte wähle deine Karten und starte die Simulation.</p>
+        {/* Intentionally left blank when no result yet */}
       </div>
     );
   }

@@ -13,16 +13,12 @@ const shuffleArray = (array) => {
 }
 
 const checkCondition = (hand, targetCard, comparator, condition) => {
-  // must have target
   const hasTargetCard = hand.some(card => card.id === targetCard.id);
   if (!hasTargetCard) return false;
-  // count same suit, including target
   const countSameSuit = hand.filter(card => card.suit === targetCard.suit).length;
-  if (comparator === 'atMost') {
-    return countSameSuit <= condition;
-  }
-  // default: atLeast
-  return countSameSuit >= condition;
+  if (comparator === 'atMost') return countSameSuit <= condition;
+  if (comparator === 'exact') return countSameSuit === condition;
+  return countSameSuit >= condition; // atLeast (default)
 };
 
 export const runSimulation = (playerHand, { targetCard, opponentType, comparator, condition, numSimulations }) => {
@@ -43,13 +39,9 @@ export const runSimulation = (playerHand, { targetCard, opponentType, comparator
         const partnerMet = checkCondition(partnerHand, targetCard, comparator, condition);
 
         let success = false;
-        if (opponentType === 'opponents_one') {
-          success = opponent1Met || opponent2Met;
-        } else if (opponentType === 'opponents_none') {
-          success = !opponent1Met && !opponent2Met;
-        } else if (opponentType === 'partner') {
-          success = partnerMet;
-        }
+        if (opponentType === 'opponents_one') success = opponent1Met || opponent2Met;
+        else if (opponentType === 'opponents_none') success = !opponent1Met && !opponent2Met;
+        else if (opponentType === 'partner') success = partnerMet;
         if (success) successCount++;
       }
       const probability = (successCount / numSimulations) * 100;
@@ -82,6 +74,13 @@ const hypergeometricTail = (N, K, n, m) => {
   return sum / denom;
 };
 
+const hypergeometricPoint = (N, K, n, j) => {
+  // P[Y = j]
+  if (j < 0 || j > n || j > K) return 0;
+  const denom = combination(N, n);
+  return (combination(K, j) * combination(N - K, n - j)) / denom;
+};
+
 export const runExact = (playerHand, { targetCard, opponentType, comparator, condition }) => {
   const h = playerHand.filter(c => c.suit === targetCard.suit).length;
   const S = 9 - h; // includes target
@@ -92,21 +91,20 @@ export const runExact = (playerHand, { targetCard, opponentType, comparator, con
   const K = Math.max(0, S - 1);
   const n = 8;
 
-  // pMeet: probability a given opponent (who has the target) meets the comparator
   const pAtLeast = hypergeometricTail(N, K, n, m); // P[Y >= m]
   const pAtMost = 1 - hypergeometricTail(N, K, n, m + 1); // P[Y <= m]
-  const pMeet = comparator === 'atMost' ? pAtMost : pAtLeast;
+  const pExact = hypergeometricPoint(N, K, n, m); // P[Y = m]
+
+  let pMeet;
+  if (comparator === 'atMost') pMeet = pAtMost;
+  else if (comparator === 'exact') pMeet = pExact;
+  else pMeet = pAtLeast;
 
   let probability;
-  if (opponentType === 'opponents_one') {
-    probability = (2 / 3) * pMeet * 100;
-  } else if (opponentType === 'opponents_none') {
-    // True if partner has target (1/3) OR opponent has target (2/3) and fails comparator
-    probability = (1 - (2 / 3) * pMeet) * 100;
-  } else if (opponentType === 'partner') {
-    probability = (1 / 3) * pMeet * 100;
-  } else {
-    probability = 0;
-  }
+  if (opponentType === 'opponents_one') probability = (2 / 3) * pMeet * 100;
+  else if (opponentType === 'opponents_none') probability = (1 - (2 / 3) * pMeet) * 100;
+  else if (opponentType === 'partner') probability = (1 / 3) * pMeet * 100;
+  else probability = 0;
+
   return probability;
 };

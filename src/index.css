@@ -34,6 +34,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #f0f2f5; /* match app background to avoid top white bar */
 }
 
 h1 {
@@ -64,6 +65,9 @@ button:focus-visible {
   :root {
     color: #213547;
     background-color: #ffffff;
+  }
+  body {
+    background-color: #f0f2f5; /* keep consistent in light mode */
   }
   a:hover {
     color: #747bff;
