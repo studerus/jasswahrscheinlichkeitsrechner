@@ -1,0 +1,214 @@
+.simulation-config-container {
+  padding: 1rem 0; /* Vertical padding */
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  margin-top: 0;
+  box-shadow: none;
+}
+
+.simulation-config-container h2 {
+  margin: 0 0 0.75rem 0;
+  border-bottom: 2px solid #007bff;
+  color: #333; /* DUNKLE SCHRIFT AUF HELLEM GRUND */
+  padding-bottom: 0.75rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: 0.8rem; /* was 1.2rem */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tighten the space after the last group (e.g., Bedingung) */
+.simulation-config-container .form-group:last-of-type {
+  margin-bottom: 0.2rem;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333; /* DUNKLE SCHRIFT */
+  font-size: 0.95rem;
+}
+
+.choice-grid-suits {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.choice-grid-suits.three-cols {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.choice-grid-suits.two-cols {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.choice-grid-values {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+.choice-grid-values > :nth-child(n+6) {
+  grid-column: span 1;
+}
+.choice-grid-values > :nth-child(6) { grid-column-start: 1; }
+
+
+.choice-btn {
+  padding: 0.75rem 0.5rem;
+  border: 2px solid #ddd;
+  background-color: #fff;
+  color: #333;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.choice-btn:hover:not(:disabled) {
+  border-color: #007bff;
+  background-color: #f0f8ff; /* light hover when not selected */
+}
+
+/* Selected state: strong contrast */
+.choice-btn.selected,
+.choice-btn.selected:hover,
+.choice-btn.selected:active {
+  background-color: #0066d6; /* darker blue */
+  color: #fff;
+  border-color: #0066d6;
+  font-weight: 600;
+}
+
+/* Active/pressed state when not selected */
+.choice-btn:active:not(.selected):not(:disabled) {
+  background-color: #e6f2ff; /* subtle press without turning unreadable */
+  border-color: #007bff;
+}
+
+/* Accessible focus */
+.choice-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+.choice-btn:disabled {
+  background-color: #f5f5f5;
+  color: #999;
+  cursor: not-allowed;
+  border-color: #eee;
+}
+
+.form-group select,
+.form-group input {
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 2px solid #ddd;
+  background-color: #fff; /* WEISSER HINTERGRUND */
+  color: #333; /* DUNKLE SCHRIFT */
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.form-group select:focus,
+.form-group input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+.form-group select:disabled,
+.form-group input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #f5f5f5;
+}
+
+.form-group select option {
+  background-color: #fff;
+  color: #333;
+}
+
+.button-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 1.5rem;
+}
+
+.start-button {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  margin-top: 1rem;
+}
+
+.start-button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.start-button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.spinner {
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top: 3px solid #fff;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.sentence {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem; /* slightly larger spacing between groups */
+}
+
+.sentence-row {
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Emphasize the question line */
+.sentence > .sentence-row:first-child {
+  font-weight: 700;
+}
+
+.sentence > .sentence-row:last-child {
+  font-weight: 700;
+}
+
+.sentence-row.small-gap {
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 768px) {
+  .simulation-config-container {
+    padding-top: 0; /* match top spacing of the cards page */
+  }
+}

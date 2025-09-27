@@ -1,0 +1,183 @@
+#root {
+  max-width: 1800px; /* was 1400px, give more width to prevent button wraps */
+  margin: 0 auto;
+  padding: 2rem;
+  width: 100%;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.app-container header {
+  text-align: center;
+  border-bottom: 1px solid #444;
+  padding-bottom: 1rem;
+}
+
+.desktop-header {
+  margin: 0; /* align with right-side sentence start */
+  padding: 0;
+}
+
+/* Desktop layout */
+.main-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr; /* left bigger for cards */
+  gap: 2rem;
+  text-align: left;
+  align-items: start; /* align both columns to the top */
+}
+
+.cards-column,
+.controls-column {
+  padding-top: 8px; /* small, equal top padding for nicer spacing */
+}
+
+.desktop-instruction {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-weight: 700;
+}
+.desktop-instruction .desktop-counter {
+  color: #888;
+  font-weight: 500;
+}
+
+.cards-column {
+  /* left side - cards */
+}
+
+/* Right column as two columns: scenario (left) and result (right) */
+.controls-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.results-column {
+  background-color: transparent;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  height: fit-content; /* On desktop, only as high as needed */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* Responsive layout for smaller screens */
+@media (max-width: 1024px) {
+  .main-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  #root {
+    padding: 1rem;
+  }
+}
+
+/* Mobile swipe container */
+.swipe-container {
+  display: none;
+}
+
+/* --- MOBILE LAYOUT --- */
+
+@media (max-width: 768px) {
+  /* Reset root and hide desktop elements */
+  #root { padding: 0; }
+  header { display: none; }
+  .main-layout { display: none; }
+
+  /* Swipe container fills the entire screen with a light background */
+  .swipe-container {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    height: 100dvh;
+    background-color: #f0f2f5; /* Light grey background for mobile */
+  }
+
+  /* Each swipe page also fills the screen */
+  .swipe-page {
+    scroll-snap-align: start;
+    padding: 10px 8px 8px; /* small, consistent top padding */
+    box-sizing: border-box;
+    height: 100dvh;
+  }
+
+  .mobile-header {
+    margin: 0 0 8px 0; /* no top margin to align with right header */
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Specific styling for each page */
+  .swipe-page:nth-child(1) {
+    /* Let the card selection scroll if it needs to */
+  }
+
+  .swipe-page:nth-child(2) {
+    overflow-y: auto; /* Enable vertical scrolling for the config page */
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* tighter spacing between scenario and result */
+  }
+
+  .results-column {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+

@@ -1,0 +1,74 @@
+.card {
+  cursor: pointer;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 63 / 95; /* A good, balanced aspect ratio */
+}
+
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.card.selected {
+  border-color: #007bff;
+  box-shadow: 0 0 10px #007bff;
+}
+
+.card.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.card.disabled:hover {
+  transform: none;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain; /* Scale image to fit within the card, no distortion */
+}
+
+@media (max-width: 600px) {
+  .card {
+    aspect-ratio: 60 / 95;
+    box-shadow: none;
+  }
+}
+
+.card-fallback {
+  display: none;
+  width: 100%;
+  height: 80px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px;
+  box-sizing: border-box;
+  color: #495057;
+}
+
+.card img:not([src]) + .card-fallback, 
+.card img[src=""] + .card-fallback {
+  display: flex;
+}
+.card img:not([src]), 
+.card img[src=""] {
+  display: none;
+}
