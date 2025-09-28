@@ -39,7 +39,7 @@
     flex-direction: column;
     gap: 10px; /* Space between suit blocks */
     flex-grow: 1;
-    overflow-y: auto;
+    overflow: visible;
   }
   
   .mobile-header {

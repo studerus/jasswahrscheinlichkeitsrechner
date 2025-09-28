@@ -159,6 +159,8 @@
     padding-bottom: 12px;
     padding-left: 12px;
     box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
   }
 
   .mobile-title {
