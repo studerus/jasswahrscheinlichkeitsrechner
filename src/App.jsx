@@ -88,21 +88,25 @@ function App() {
       {/* Mobile swipe layout */}
       <section className="swipe-container" ref={swipeContainerRef}>
         <div className="swipe-page">
-          <h2 className="mobile-title">Jasswahrscheinlichkeitsrechner</h2>
-          <CardGrid 
-            selectedCards={selectedCards}
-            onCardSelect={handleCardSelect}
-            maxSelection={MAX_SELECTED_CARDS}
-          />
+          <div className="scroll-content">
+            <h2 className="mobile-title">Jasswahrscheinlichkeitsrechner</h2>
+            <CardGrid 
+              selectedCards={selectedCards}
+              onCardSelect={handleCardSelect}
+              maxSelection={MAX_SELECTED_CARDS}
+            />
+          </div>
         </div>
         <div className="swipe-page">
-          <SimulationConfig 
-            selectedCards={selectedCards}
-            onStart={handleStartSimulation}
-            isLoading={isLoading}
-          />
-          <div className="results-column">
-            <ResultDisplay isLoading={isLoading} result={simulationResult} />
+          <div className="scroll-content">
+            <SimulationConfig 
+              selectedCards={selectedCards}
+              onStart={handleStartSimulation}
+              isLoading={isLoading}
+            />
+            <div className="results-column">
+              <ResultDisplay isLoading={isLoading} result={simulationResult} />
+            </div>
           </div>
         </div>
       </section>

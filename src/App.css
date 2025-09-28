@@ -136,31 +136,37 @@
   header { display: none; }
   .main-layout { display: none; }
 
-  /* Swipe container spans full width and uses dynamic viewport height */
+  /* Swipe container: Handles HORIZONTAL swiping ONLY */
   .swipe-container {
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: 100%;
     overflow-x: auto;
+    overflow-y: hidden; /* CRITICAL: No vertical scroll here */
     scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
     width: 100%;
-    min-height: 100dvh;
-    background-color: #f0f2f5; /* Light grey background for mobile */
+    height: 100vh; /* Fallback for older browsers */
+    height: 100dvh; /* Use dynamic viewport height */
+    -webkit-overflow-scrolling: touch;
+    background-color: #f0f2f5;
   }
 
-  /* Each swipe page scrolls vertically as needed */
+  /* Swipe page: Fills the container, but does NOT scroll */
   .swipe-page {
     scroll-snap-align: start;
+    height: 100%;
+    overflow: hidden; /* CRITICAL: This element must not scroll */
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Scroll content: The INNER container handles VERTICAL scrolling ONLY */
+  .scroll-content {
+    flex: 1 1 auto;
     overflow-y: auto;
-    min-height: 100dvh;
-    padding-top: calc(env(safe-area-inset-top, 0px) + 20px);
-    padding-right: 12px;
-    padding-bottom: 12px;
-    padding-left: 12px;
+    -webkit-overflow-scrolling: touch; /* Momentum scrolling for iOS */
+    padding: calc(env(safe-area-inset-top, 0px) + 20px) 12px 20px 12px;
     box-sizing: border-box;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-y;
   }
 
   .mobile-title {
@@ -191,11 +197,18 @@
     gap: 0.15rem;
   }
 
+  /* Specific styling for each page's inner scroller */
+  .swipe-page:nth-child(2) .scroll-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+   
   .swipe-page:nth-child(2) .results-column {
     margin-top: 0;
     justify-content: flex-start;
   }
-
+ 
   .results-column {
     height: 100%;
     display: flex;

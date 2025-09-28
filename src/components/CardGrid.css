@@ -2,7 +2,7 @@
 .card-grid-container {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  /* height: 100% was here, removing it allows natural content height */
 }
 
 /* --- DESKTOP STYLES (default) --- */
@@ -38,8 +38,7 @@
   .card-grid-mobile {
     flex-direction: column;
     gap: 10px; /* Space between suit blocks */
-    flex-grow: 1;
-    overflow: visible;
+    /* flex-grow: 1; and overflow-y: auto; removed to allow parent to scroll */
   }
   
   .mobile-header {
