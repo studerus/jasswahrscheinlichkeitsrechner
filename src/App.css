@@ -148,9 +148,9 @@
   /* Each swipe page also fills the screen */
   .swipe-page {
     scroll-snap-align: start;
-    padding: 0 8px 8px; /* remove top padding to eliminate white bar */
-    box-sizing: border-box;
+    overflow-y: auto;
     height: 100dvh;
+    padding: env(safe-area-inset-top, 8px) 12px 12px;
   }
 
   .mobile-header {

@@ -65,8 +65,8 @@ const SimulationConfig = ({ selectedCards, onStart, isLoading }) => {
 
         <div className="choice-grid-suits three-cols">
           <button className={`choice-btn ${opponentType === 'partner' ? 'selected' : ''}`} onClick={() => setOpponentType('partner')} disabled={selectedCards.length < 9}>mein Partner</button>
-          <button className={`choice-btn ${opponentType === 'opponents_one' ? 'selected' : ''}`} onClick={() => setOpponentType('opponents_one')} disabled={selectedCards.length < 9}>ein Gegner</button>
-          <button className={`choice-btn ${opponentType === 'opponents_none' ? 'selected' : ''}`} onClick={() => setOpponentType('opponents_none')} disabled={selectedCards.length < 9}>kein Gegner</button>
+          <button className={`choice-btn ${opponentType === 'opponents_one' ? 'selected' : ''}`} onClick={() => setOpponentType('opponents_one')} disabled={selectedCards.length < 9}>einer der Gegner</button>
+          <button className={`choice-btn ${opponentType === 'opponents_none' ? 'selected' : ''}`} onClick={() => setOpponentType('opponents_none')} disabled={selectedCards.length < 9}>keiner der Gegner</button>
         </div>
 
         <div className="choice-grid-suits">
