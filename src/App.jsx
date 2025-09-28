@@ -12,21 +12,39 @@ function App() {
   const MAX_SELECTED_CARDS = 9;
 
   const swipeContainerRef = useRef(null);
+  const isMobileView = window.innerWidth <= 768;
 
   // Reset result whenever the selection of cards changes
   useEffect(() => {
     setSimulationResult(null);
   }, [selectedCards]);
 
+  useEffect(() => {
+    const setVh = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+
+    if (isMobileView) {
+      setVh();
+      window.addEventListener('resize', setVh);
+      window.addEventListener('orientationchange', setVh);
+
+      return () => {
+        window.removeEventListener('resize', setVh);
+        window.removeEventListener('orientationchange', setVh);
+      };
+    }
+  }, [isMobileView]);
+
   // Auto-swipe on mobile when 9 cards selected
   useEffect(() => {
     const el = swipeContainerRef.current;
     if (!el) return;
-    const isMobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
-    if (!isMobile) return;
+    if (!isMobileView) return;
     const targetLeft = selectedCards.length >= MAX_SELECTED_CARDS ? el.clientWidth : 0;
     el.scrollTo({ left: targetLeft, behavior: 'smooth' });
-  }, [selectedCards.length]);
+  }, [selectedCards.length, isMobileView]);
 
   const handleCardSelect = (card) => {
     setSelectedCards(prevSelected => {
