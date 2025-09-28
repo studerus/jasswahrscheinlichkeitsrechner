@@ -1,5 +1,5 @@
 import React from 'react';
-import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import './ResultDisplay.css';
 
 const ResultDisplay = ({ isLoading, result }) => {
@@ -47,12 +47,15 @@ const ResultDisplay = ({ isLoading, result }) => {
               fill="#8884d8"
               paddingAngle={4}
               dataKey="value"
+              animationDuration={600}
+              animationEasing="ease-out"
+              animationBegin={0}
+              isUpdateAnimationActive={false}
             >
               {data.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
               ))}
             </Pie>
-            <Tooltip formatter={(value) => `${value.toFixed(2)}%`} />
           </PieChart>
         </ResponsiveContainer>
       </div>

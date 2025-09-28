@@ -88,6 +88,7 @@ function App() {
       {/* Mobile swipe layout */}
       <section className="swipe-container" ref={swipeContainerRef}>
         <div className="swipe-page">
+          <h2 className="mobile-title">Jasswahrscheinlichkeitsrechner</h2>
           <CardGrid 
             selectedCards={selectedCards}
             onCardSelect={handleCardSelect}
