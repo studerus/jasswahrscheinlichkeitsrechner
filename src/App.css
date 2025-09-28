@@ -141,11 +141,8 @@
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    height: 100svh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    height: 100vh;
+    min-height: 100svh;
     background-color: #f0f2f5; /* Light grey background for mobile */
   }
 
@@ -153,8 +150,10 @@
   .swipe-page {
     scroll-snap-align: start;
     overflow-y: auto;
-    height: 100svh;
+    height: 100vh;
+    min-height: 100svh;
     padding: max(env(safe-area-inset-top), 16px) 12px 12px;
+    box-sizing: border-box;
   }
 
   .mobile-header {
